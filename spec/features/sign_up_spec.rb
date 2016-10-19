@@ -15,4 +15,15 @@ feature 'User can sign up' do
     expect(current_path).to eq('/users')
   end
 
+  scenario 'User fails to input email' do
+    expect{ noname_sign_up }.to change(User, :count).by(0)
+    expect(current_path).to eq('/users')
+  end
+
+
+    scenario 'User fails to input valid email' do
+      expect{ bademail_sign_up }.to change(User, :count).by(0)
+      expect(current_path).to eq('/users')
+    end
+
 end
