@@ -8,6 +8,13 @@
     <% if current_user %>
       Welcome <%= current_user.email %>
     <% end %>
-    <%= yield %>
   </body>
+  <body>
+    <div id='password_error'>
+      <% if flash[:password_error] %>
+        <%= flash[:password_error] %>
+      <% end %>
+    </div>
+  </body>
+  <%= yield %>
 </html>

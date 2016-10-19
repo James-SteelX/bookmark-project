@@ -11,7 +11,8 @@ feature 'User can sign up' do
 
   scenario 'User inputs wrong password' do
     expect{ bad_sign_up }.to change(User, :count).by(0)
-    expect(page).not_to have_content('Welcome joe@email.com')
+    expect(page).to have_content('Passwords do not match')
+    expect(current_path).to eq('/users')
   end
 
 end
