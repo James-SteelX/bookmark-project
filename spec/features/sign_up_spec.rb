@@ -11,7 +11,7 @@ feature 'User can sign up' do
 
   scenario 'User inputs wrong password' do
     expect{ bad_sign_up }.to change(User, :count).by(0)
-    expect(page).to have_content('Passwords do not match')
+    expect(page).to have_content('Password does not match the confirmation')
     expect(current_path).to eq('/users')
   end
 
@@ -24,6 +24,13 @@ feature 'User can sign up' do
     scenario 'User fails to input valid email' do
       expect{ bademail_sign_up }.to change(User, :count).by(0)
       expect(current_path).to eq('/users')
+    end
+
+    scenario 'User can not sign up if email exists' do
+      # expect { sign_up }.to change(User, :count).by(1)
+      sign_up
+      expect { sign_up }.to change(User, :count).by(0)
+      expect(page).to have_content('Email is already taken')
     end
 
 end
