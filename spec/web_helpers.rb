@@ -16,4 +16,10 @@ module SessionHelpers
 		click_button 'Sign in'
 	end
 
+	def recover_password
+		visit '/users/recovery'
+		fill_in :email, with: "Joe@email.com"
+		click_button 'Submit'
+	end 
+
 end
