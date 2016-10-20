@@ -11,4 +11,15 @@ feature 'Creating users' do
 	  expect(current_path).to eq('/users')
 	  expect(page).to have_content 'Password and confirmation password do not match'
 	end
+
+	scenario 'user can\'t submit blank email' do
+		expect { create_user('', 'pears', 'pears') }.not_to change(User, :count)
+		expect(current_path).to eq('/users')
+	end
+
+	scenario 'user can\'t submit wrongly formatted email' do
+		expect { create_user('bjds`bvbvnjvks.bvk', 'pears', 'pears') }.not_to change(User, :count)
+		expect(current_path).to eq('/users')
+	end
+
 end
