@@ -44,6 +44,21 @@ class BookmarkManager < Sinatra::Base
     erb :'users/sign_up'
   end
 
+  get '/users/sign_in' do
+    erb :'/users/sign_in'
+  end
+
+  post '/users/sign_in' do
+    user = User.authenticate(params[:email], params[:password])
+    if user
+      session[:user_id] = user.id
+      redirect '/links'
+    else
+      flash.now[:errors] = ['The emails or password is incorrect']
+      erb :'users/sign_in'
+    end 
+  end
+
   post '/users' do
     @user = User.new(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     if @user.save
@@ -51,7 +66,7 @@ class BookmarkManager < Sinatra::Base
       redirect to('/links')
     else
       flash.now[:errors] = @user.errors.full_messages
-      erb :'users/sign_up'
+      erb :'/users/sign_up'
     end
   end
 
