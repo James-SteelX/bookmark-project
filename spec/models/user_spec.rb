@@ -6,12 +6,12 @@ describe User do
     User.create(email: 'hello@email.com', password: '1234', password_confirmation: '1234')
   end
 
-  it 'authenticates when given a valid email address' do
+  it 'authenticates when given a valid email address and password' do
     authenticated_user = User.authenticate(user.email, user.password)
     expect(authenticated_user).to eq user
   end
 
-  it 'does not authenticate with wrong email' do
+  it 'does not authenticate with wrong password' do
     expect(User.authenticate(user.email, '21704e141413')).to be_nil
   end
 end
